@@ -1,0 +1,142 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --background: 0 0% 4%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 38 92% 50%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 64%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 16%;
+  --input: 0 0% 16%;
+  --ring: 38 92% 50%;
+  --radius: 0.75rem;
+
+  --team-red-primary: 0 84% 60%;
+  --team-red-secondary: 0 100% 70%;
+  --team-blue-primary: 190 95% 60%;
+  --team-blue-secondary: 190 100% 70%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: hsl(var(--background));
+  background-image:
+    linear-gradient(hsl(var(--border)) 1px, transparent 1px),
+    linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: bg-pan 30s linear infinite;
+}
+
+@keyframes bg-pan {
+  from { background-position: 0 0; }
+  to { background-position: 40px 40px; }
+}
+
+.team-red {
+  --team-color-primary: var(--team-red-primary);
+  --team-color-secondary: var(--team-red-secondary);
+}
+
+.team-blue {
+  --team-color-primary: var(--team-blue-primary);
+  --team-color-secondary: var(--team-blue-secondary);
+}
+
+.glow-effect {
+  box-shadow: 0 0 25px hsla(var(--team-color-primary), 0.4), 0 0 10px hsla(var(--team-color-primary), 0.2);
+}
+
+.strategy-card {
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border));
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pulse-animation {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+
+.resource-bar-bg {
+  background-color: hsl(var(--secondary));
+}
+.resource-bar-fill {
+  background: linear-gradient(90deg, hsl(var(--team-color-primary)), hsl(var(--team-color-secondary)));
+}
+
+input[type="range"].slider-red::-webkit-slider-thumb {
+  background: hsl(var(--team-red-primary));
+}
+input[type="range"].slider-red::-moz-range-thumb {
+  background: hsl(var(--team-red-primary));
+}
+
+input[type="range"].slider-blue::-webkit-slider-thumb {
+  background: hsl(var(--team-blue-primary));
+}
+input[type="range"].slider-blue::-moz-range-thumb {
+  background: hsl(var(--team-blue-primary));
+}
+
+input[type="range"].slider-yellow::-webkit-slider-thumb {
+  background: hsl(var(--primary));
+}
+input[type="range"].slider-yellow::-moz-range-thumb {
+  background: hsl(var(--primary));
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: hsl(var(--secondary));
+  border-radius: 99px;
+  outline: none;
+  transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 4px solid hsl(var(--background));
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 4px solid hsl(var(--background));
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
