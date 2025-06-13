@@ -1,33 +1,29 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: 0 0% 4%;
-  --foreground: 0 0% 98%;
-  --card: 0 0% 8%;
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 8%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 38 92% 50%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 12%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 12%;
-  --muted-foreground: 0 0% 64%;
-  --accent: 38 92% 50%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 16%;
-  --input: 0 0% 16%;
-  --ring: 38 92% 50%;
-  --radius: 0.75rem;
-
-  --team-red-primary: 0 84% 60%;
-  --team-red-secondary: 0 100% 70%;
-  --team-blue-primary: 190 95% 60%;
-  --team-blue-secondary: 190 100% 70%;
+  --background: 220 13% 9%;
+  --foreground: 220 9% 95%;
+  --card: 220 13% 11%;
+  --card-foreground: 220 9% 95%;
+  --popover: 220 13% 11%;
+  --popover-foreground: 220 9% 95%;
+  --primary: 142 76% 36%;
+  --primary-foreground: 220 9% 95%;
+  --secondary: 220 13% 15%;
+  --secondary-foreground: 220 9% 95%;
+  --muted: 220 13% 15%;
+  --muted-foreground: 220 9% 65%;
+  --accent: 220 13% 15%;
+  --accent-foreground: 220 9% 95%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 220 9% 95%;
+  --border: 220 13% 20%;
+  --input: 220 13% 20%;
+  --ring: 142 76% 36%;
+  --radius: 0.5rem;
 }
 
 * {
@@ -35,108 +31,119 @@
 }
 
 body {
-  color: hsl(var(--foreground));
-  font-feature-settings: "rlig" 1, "calt" 1;
-  min-height: 100vh;
-  overflow-x: hidden;
   background-color: hsl(var(--background));
-  background-image:
-    linear-gradient(hsl(var(--border)) 1px, transparent 1px),
-    linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: bg-pan 30s linear infinite;
+  color: hsl(var(--foreground));
+  font-family: 'Inter', sans-serif;
 }
 
-@keyframes bg-pan {
-  from { background-position: 0 0; }
-  to { background-position: 40px 40px; }
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
 }
 
-.team-red {
-  --team-color-primary: var(--team-red-primary);
-  --team-color-secondary: var(--team-red-secondary);
+#root {
+  position: relative;
+  z-index: 1;
 }
 
-.team-blue {
-  --team-color-primary: var(--team-blue-primary);
-  --team-color-secondary: var(--team-blue-secondary);
+#three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0.5;
 }
 
-.glow-effect {
-  box-shadow: 0 0 25px hsla(var(--team-color-primary), 0.4), 0 0 10px hsla(var(--team-color-primary), 0.2);
+.code-block {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
-.strategy-card {
-  background: rgba(18, 18, 18, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid hsl(var(--border));
-  -webkit-backdrop-filter: blur(12px);
+.code-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.5), transparent);
 }
 
-.pulse-animation {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.gradient-text {
+  background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .7; }
+.hero-bg {
+  position: relative;
+  z-index: 2;
+  background: radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 40%),
+              radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+              radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
 }
 
-.resource-bar-bg {
-  background-color: hsl(var(--secondary));
-}
-.resource-bar-fill {
-  background: linear-gradient(90deg, hsl(var(--team-color-primary)), hsl(var(--team-color-secondary)));
-}
-
-input[type="range"].slider-red::-webkit-slider-thumb {
-  background: hsl(var(--team-red-primary));
-}
-input[type="range"].slider-red::-moz-range-thumb {
-  background: hsl(var(--team-red-primary));
+.snippet-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
-input[type="range"].slider-blue::-webkit-slider-thumb {
-  background: hsl(var(--team-blue-primary));
-}
-input[type="range"].slider-blue::-moz-range-thumb {
-  background: hsl(var(--team-blue-primary));
-}
-
-input[type="range"].slider-yellow::-webkit-slider-thumb {
-  background: hsl(var(--primary));
-}
-input[type="range"].slider-yellow::-moz-range-thumb {
-  background: hsl(var(--primary));
+.snippet-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-color: rgba(34, 197, 94, 0.3);
+  transform: translateY(-1px);
 }
 
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 8px;
-  background: hsl(var(--secondary));
-  border-radius: 99px;
-  outline: none;
-  transition: opacity .2s;
+.search-glow {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 4px solid hsl(var(--background));
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+.search-glow:focus {
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.4);
 }
 
-input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 4px solid hsl(var(--background));
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.6);
+  }
+}
+
+.copy-success {
+  animation: pulse-glow 0.6s ease-in-out;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 197, 94, 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.3);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 197, 94, 0.5);
+}
+
+.task-card[data-completed="true"] {
+  text-decoration: line-through;
+  opacity: 0.6;
 }

@@ -1,38 +1,49 @@
-import React from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import { useCrowdWar } from '@/hooks/useCrowdWar';
-import Header from '@/components/game/Header';
-import ControlPanel from '@/components/game/ControlPanel';
-import BattleArena from '@/components/game/BattleArena';
+import React, { useState } from 'react';
+import Header from '@/components/Header';
+import HomePage from '@/components/HomePage';
+import MainPage from '@/components/MainPage';
+import ThreeVault from '@/components/ThreeVault';
+import { Toaster } from "@/components/ui/toaster";
+import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
-  const {
-    selectedTeam,
-    strategies,
-    battleState,
-    aggregatedStrategies,
-    actions,
-  } = useCrowdWar();
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const onEnterVault = () => setCurrentPage('vault');
+  const onGoHome = () => setCurrentPage('home');
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground relative">
+      <AnimatePresence>
+        {currentPage === 'home' && <ThreeVault />}
+      </AnimatePresence>
+      <div className="relative z-10">
+        <Header onTitleClick={onGoHome} />
+        <main>
+          <AnimatePresence mode="wait">
+            {currentPage === 'home' && (
+              <motion.div
+                key="home"
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+              >
+                <HomePage onEnter={onEnterVault} />
+              </motion.div>
+            )}
+            {currentPage === 'vault' && (
+              <motion.div
+                key="vault"
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <MainPage />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </main>
+      </div>
       <Toaster />
-      <Header round={battleState.round} />
-      
-      <main className="container mx-auto px-4 pt-28 pb-8">
-        <div className="flex flex-col lg:flex-row gap-6">
-          <ControlPanel 
-            selectedTeam={selectedTeam}
-            strategies={strategies}
-            battleState={battleState}
-            actions={actions}
-          />
-          <BattleArena
-            battleState={battleState}
-            aggregatedStrategies={aggregatedStrategies}
-          />
-        </div>
-      </main>
     </div>
   );
 }
